@@ -1,0 +1,18 @@
+{
+  "name": "Tracker",
+  "version": "0.1.0",
+  "description": "A data tracking system",
+  "repository": "https://github.com/joshavanier/tracker",
+  "main": "./main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^1.8.1",
+    "electron-prebuilt": "^1.4.13"
+  },
+  "dependencies": {
+    "electron-packager": "^8.4.0"
+  }
+}
