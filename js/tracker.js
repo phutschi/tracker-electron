@@ -1,9 +1,9 @@
 /**
- * Log
- * A log and time-tracking system
+ * Tracker
+ * A data tracking system
  *
  * @author Josh Avanier
- * @version 1.0.2
+ * @version 0.1.0
  * @license MIT
  */
 
