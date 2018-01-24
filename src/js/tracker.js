@@ -14,7 +14,7 @@ var Tracker = {
   config: {},
 
   /**
-   * Display a log table
+   * Display a table of entries
    * @param {Object[]} set - Data set
    * @param {number=} num - Number of entries to show
    * @param {string=} con - Container
@@ -22,8 +22,7 @@ var Tracker = {
   display(set, num = 50, con = 'setEntries') {
     let ent = set.data
 
-    let index
-
+    let index = 0
     for (let i = 0, l = user.datasets.length; i < l; i++) {
       if (set.set === user.datasets[i].set) {
         index = i
@@ -89,44 +88,41 @@ var Tracker = {
     set(id) {
       Tracker.detail.clear()
 
-      Tracker.ui.write('setName', user.datasets[id].set)
+      let set = user.datasets[id]
+      let data = set.data
+      let val = Tracker.data.listValues(data)
 
-      let data = user.datasets[id].data
+      Tracker.ui.write('setName', set.set)
 
-      let values = Tracker.data.listValues(data)
-
-      Tracker.vis.bar('setChart', user.datasets[id])
+      Tracker.vis.bar('setChart', set)
 
       Tracker.ui.write('entryCount', data.length)
-      Tracker.ui.write('sum', Tracker.data.sum(values).toFixed(2))
-      Tracker.ui.write('min', Tracker.data.min(values).toFixed(2))
-      Tracker.ui.write('max', Tracker.data.max(values).toFixed(2))
-      Tracker.ui.write('avg', Tracker.data.avg(values).toFixed(2))
-      Tracker.ui.write('std', Tracker.data.sd(values).toFixed(2))
+      Tracker.ui.write('sum', Tracker.data.sum(val).toFixed(2))
+      Tracker.ui.write('min', Tracker.data.min(val).toFixed(2))
+      Tracker.ui.write('max', Tracker.data.max(val).toFixed(2))
+      Tracker.ui.write('avg', Tracker.data.avg(val).toFixed(2))
+      Tracker.ui.write('std', Tracker.data.sd(val).toFixed(2))
 
-      Tracker.display(user.datasets[id])
+      Tracker.display(set)
     },
 
     clear() {
-      let el = 'setEntries setChart'.split(' ')
-
-      for (let i = 0, l = el.length; i < l; i++) {
-        Tracker.ui.empty(el[i])
-      }
+      Tracker.ui.empty('setChart')
+      Tracker.ui.empty('setEntries')
     }
   },
 
-  nav(con) {
-    // let sets = user.datasets
-
+  /**
+   * Generate data set navigation
+   * @param {string=} con - Container
+   */
+  nav(con = 'setList') {
     for (let i = 0, l = user.datasets.length; i < l; i++) {
       if (user.datasets[i].data.length !== 0) {
         let li = document.createElement('li')
-        let id = `set-${i}`
 
         li.className = 'lhd c-pt'
         li.innerHTML = user.datasets[i].set
-
         li.setAttribute('onclick', `Tracker.detail.set("${i}")`)
 
         document.getElementById(con).appendChild(li)
@@ -162,11 +158,7 @@ var Tracker = {
   },
 
   reset() {
-    let el = 'setList'.split(' ')
-
-    for (let i = 0, l = el.length; i < l; i++) {
-      Tracker.ui.empty(el[i])
-    }
+    Tracker.ui.empty('setList')
   },
 
   init() {
@@ -260,7 +252,7 @@ var Tracker = {
     if (user.datasets.length === 0) {
       Tracker.tab('gui', 'sect', 'tab')
     } else {
-      Tracker.nav('setList')
+      Tracker.nav()
       Tracker.detail.set(0)
     }
   }

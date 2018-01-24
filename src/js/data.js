@@ -97,46 +97,6 @@ Tracker.data = {
   },
 
   /**
-   * Get entries of a specific project
-   * @param {string} pro - Project
-   * @param {Object[]=} ent - Entries
-   * @returns {Object[]} Entries
-   */
-  getEntriesByProject(pro, ent = Tracker.log) {
-    if (ent.length === 0) return
-
-    let entries = []
-
-    for (let i = 0, l = ent.length; i < l; i++) {
-      if (ent[i].e !== 'undefined' && ent[i].t === pro) {
-        entries.push(ent[i])
-      }
-    }
-
-    return entries
-  },
-
-  /**
-   * Get entries of a specific sector
-   * @param {string} sec - Sector
-   * @param {Object[]=} ent - Entries
-   * @returns {Object[]} Entries
-   */
-  getEntriesBySector(sec, ent = Tracker.log) {
-    if (ent.length === 0) return
-
-    let entries = []
-
-    for (let i = 0, l = ent.length; i < l; i++) {
-      if (ent[i].e !== 'undefined' && ent[i].c === sec) {
-        entries.push(ent[i])
-      }
-    }
-
-    return entries
-  },
-
-  /**
    * Sort entries by date
    * @param {Object[]=} ent - Entries
    * @param {Object=} end - End date
@@ -363,23 +323,6 @@ Tracker.data = {
     }
 
     return Math.sqrt(sum / set.length)
-  },
-
-  /**
-   * Calculate average logged hours
-   * @param {Object[]=} ent - Sorted entries
-   * @returns {number} Average logged hours
-   */
-  avgLh(ent = Tracker.cache.sortEntries) {
-    if (ent.length === 0) return 0
-
-    let h = 0
-
-    for (let i = 0, l = ent.length; i < l; i++) {
-      h += Tracker.data.lh(ent[i])
-    }
-
-    return h / ent.length
   },
 
   /**
