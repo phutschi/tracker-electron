@@ -8,8 +8,8 @@ var win
 
 app.on('ready', function() {
   win = new BrowserWindow({
-    width: 960,
-    height: 600,
+    width: 1260,
+    height: 800,
     backgroundColor: '#0c0c0c',
     resizable: false,
     autoHideMenuBar: true,

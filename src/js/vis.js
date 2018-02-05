@@ -34,7 +34,7 @@ Tracker.vis = {
       let inn = document.createElement('div')
 
       col.className = 'dib hf psr'
-      col.style.width = `${100 / Tracker.config.ui.view}%`
+      col.style.width = `${100 / Tracker.config.ui.view - 1}%`
 
       inn.className = 'sw1 hf cn bb'
       inn.id = id
